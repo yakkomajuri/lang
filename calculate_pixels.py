@@ -2,6 +2,7 @@ import os
 from operator import itemgetter
 from PIL import Image, ImageDraw, ImageFont
 from locales import LOCALE_TO_LANGUAGE 
+from char_to_pixel import PIXELS_PER_CHAR
 import json
 
 char_to_pixel_count = {}
@@ -45,6 +46,7 @@ def process_data():
         text = row['text']
         output_file_content += f'"{language}","{locale}",{total_pixels},{total_chars},{pixel_to_char_ratio},"{text}"\n'
     
+    
     with open('./results.csv', 'w') as output_file:
         output_file.write(output_file_content)
 
@@ -56,12 +58,19 @@ def count_pixels_in_text(text):
     pixel_count = 0
     for char in text:
         if char in {'\s', '\n'}:
-            pass
+            continue
+        pixel_count += PIXELS_PER_CHAR[char]
+        '''
+        if char in {'\s', '\n'}:
+            continue
         elif char in char_to_pixel_count:
             pixel_count += char_to_pixel_count[char]
         else:
             char_px_count = count_black_pixels(draw_letter(char))
             char_to_pixel_count[char] = char_px_count
+        '''
+    print(text, pixel_count)
+
     return pixel_count
 
 
