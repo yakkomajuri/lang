@@ -25,7 +25,7 @@ def process_data():
             }
         )
     
-    output_file_content = 'Language,Locale,Total Pixels,Total Chars,Total Pixels/Total Chars,Text\n'
+    output_file_content = 'Language,Locale,Total Pixels,Total Chars,Avg. (Mean) Pixels Per Char,Text\n'
 
     sorted_data = sorted(data, key=lambda dic: dic['pixels'])
 
