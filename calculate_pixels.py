@@ -16,6 +16,11 @@ def process_data():
         i += 1
         with open(f'./data/{file_name}', 'r') as data_file:
             text = data_file.read()
+
+        # Google returns a policy in English if they don't have a translation for the locale
+        if file_name[:2] != 'en' and 'When you use our services, you’re trusting us with your information.' in text:
+            continue
+
         data.append(
             {
                 'pixels': count_pixels_in_text(text), 
