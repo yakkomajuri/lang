@@ -38,7 +38,7 @@ def process_data():
         total_chars = row['chars']
         pixel_to_char_ratio = round(total_pixels/total_chars, 2)
         text = row['text']
-        output_file_content += f'{language},{locale},{total_pixels},{total_chars},{pixel_to_char_ratio},"{text}"\n'
+        output_file_content += f'"{language}","{locale}",{total_pixels},{total_chars},{pixel_to_char_ratio},"{text}"\n'
     
     with open('./results.csv', 'w') as output_file:
         output_file.write(output_file_content)
