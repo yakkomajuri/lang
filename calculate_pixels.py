@@ -5,7 +5,6 @@ from locales import LOCALE_TO_LANGUAGE
 from char_to_pixel import PIXELS_PER_CHAR
 from square_data import SQUARE_IMG_DATA_HASH
 import json
-import hashlib
 
 STR_VALUES_FOR_TRUE =  { '1', 'true', 'True' }
 
@@ -22,6 +21,8 @@ def process_data():
     data_file_list_len = len(data_file_list)
     i = 0
     for file_name in data_file_list:
+        if file_name == '.DS_Store':
+            continue
         print(f'Currently processing {file_name}: {i} of {data_file_list_len}')
         i += 1
         with open(f'./data/{file_name}', 'r') as data_file:
@@ -41,7 +42,6 @@ def process_data():
                 'spaces': spaces
             }
         )
-        print('\n\n\n')
     
     output_file_content = 'Language,Locale,Total Pixels,Total Chars,Avg. (Mean) Pixels Per Char,Total Spaces,Text\n'
 
@@ -85,11 +85,7 @@ def count_pixels_in_text(text):
         if char in char_to_pixel_count:
             pixel_count += char_to_pixel_count[char]
         else:
-            count, is_drawable = count_black_pixels(draw_letter(char))
-            if not is_drawable:
-                print(char, is_drawable)
-
-            char_px_count = count
+            char_px_count = count_black_pixels(draw_letter(char))
             char_to_pixel_count[char] = char_px_count
             pixel_count += char_px_count
 
@@ -119,7 +115,7 @@ def draw_letter(letter, save=True):
 
 def count_black_pixels(img):
     pixels = list(img.getdata())
-    return len(list(filter(lambda rgb: sum(rgb) == 0, pixels))), hashlib.md5(json.dumps(pixels).encode()).hexdigest() != SQUARE_IMG_DATA_HASH
+    return len(list(filter(lambda rgb: sum(rgb) == 0, pixels)))
 
 
 process_data()

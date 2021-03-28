@@ -9,7 +9,7 @@ LOCALE_TO_LANGUAGE = {
     "sq_AL": "Albanian (Albania)",
     "sq": "Albanian",
     # "am_ET": "Amharic (Ethiopia)", not supported by font
-    "am": "Amharic",
+    # "am": "Amharic", not supported by font
     "ar_DZ": "Arabic (Algeria)",
     "ar_BH": "Arabic (Bahrain)",
     "ar_EG": "Arabic (Egypt)",
@@ -262,8 +262,8 @@ LOCALE_TO_LANGUAGE = {
     "ms_BN": "Malay (Brunei)",
     "ms_MY": "Malay (Malaysia)",
     "ms": "Malay",
-    "ml_IN": "Malayalam (India)",
-    "ml": "Malayalam",
+    # "ml_IN": "Malayalam (India)", not supported by font
+    # "ml": "Malayalam", not supported by font
     "mt_MT": "Maltese (Malta)",
     "mt": "Maltese",
     "gv_GB": "Manx (United Kingdom)",
@@ -312,9 +312,9 @@ LOCALE_TO_LANGUAGE = {
     "pa_Guru": "Punjabi (Gurmukhi)",
     "pa_Guru_IN": "Punjabi (Gurmukhi, India)",
     "pa": "Punjabi",
-    "ro_MD": "Romanian (Moldova)",
-    "ro_RO": "Romanian (Romania)",
-    "ro": "Romanian",
+    # "ro_MD": "Romanian (Moldova)", not supported by font
+    # "ro_RO": "Romanian (Romania)", not supported by font
+    # "ro": "Romanian", not supported by font
     "rm_CH": "Romansh (Switzerland)",
     "rm": "Romansh",
     "rof_TZ": "Rombo (Tanzania)",
