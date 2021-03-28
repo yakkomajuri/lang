@@ -8,7 +8,7 @@ LOCALE_TO_LANGUAGE = {
     "ak": "Akan",
     "sq_AL": "Albanian (Albania)",
     "sq": "Albanian",
-    "am_ET": "Amharic (Ethiopia)",
+    # "am_ET": "Amharic (Ethiopia)", not supported by font
     "am": "Amharic",
     "ar_DZ": "Arabic (Algeria)",
     "ar_BH": "Arabic (Bahrain)",

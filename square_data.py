@@ -1,0 +1,1 @@
+SQUARE_IMG_DATA_HASH = "521cf30da1ffb22b40baea1b6a4f01ec"

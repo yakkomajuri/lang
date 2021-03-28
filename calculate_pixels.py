@@ -3,7 +3,9 @@ from operator import itemgetter
 from PIL import Image, ImageDraw, ImageFont
 from locales import LOCALE_TO_LANGUAGE 
 from char_to_pixel import PIXELS_PER_CHAR
+from square_data import SQUARE_IMG_DATA_HASH
 import json
+import hashlib
 
 STR_VALUES_FOR_TRUE =  { '1', 'true', 'True' }
 
@@ -11,6 +13,7 @@ USE_CACHE = 'USE_CACHE' in os.environ and os.environ['USE_CACHE'] in STR_VALUES_
 REGENERATE_IMAGES = 'REGENERATE_IMAGES' in os.environ and os.environ['REGENERATE_IMAGES'] in STR_VALUES_FOR_TRUE
 
 char_to_pixel_count = {}
+undrawable_chars = set()
 
 
 def process_data():
@@ -38,6 +41,7 @@ def process_data():
                 'spaces': spaces
             }
         )
+        print('\n\n\n')
     
     output_file_content = 'Language,Locale,Total Pixels,Total Chars,Avg. (Mean) Pixels Per Char,Total Spaces,Text\n'
 
@@ -81,7 +85,11 @@ def count_pixels_in_text(text):
         if char in char_to_pixel_count:
             pixel_count += char_to_pixel_count[char]
         else:
-            char_px_count = count_black_pixels(draw_letter(char))
+            count, is_drawable = count_black_pixels(draw_letter(char))
+            if not is_drawable:
+                print(char, is_drawable)
+
+            char_px_count = count
             char_to_pixel_count[char] = char_px_count
             pixel_count += char_px_count
 
@@ -97,11 +105,11 @@ def draw_letter(letter, save=True):
             return Image.open(f"./imgs/{letter}.png")
 
 
-    arial_unicode = ImageFont.truetype('/Library/Fonts/Arial Unicode.ttf', 100)
+    arial_unicode = ImageFont.truetype('/Library/Fonts/Arial Unicode.ttf', 60)
     img = Image.new('RGB', (200, 200), 'white')
 
     draw = ImageDraw.Draw(img)
-    draw.text((0,0), letter, font=arial_unicode, fill='#000000')
+    draw.text((75,0), letter, font=arial_unicode, fill='#000000')
 
     if save:
         img.save("imgs/{}.png".format(letter), 'PNG')
@@ -111,7 +119,7 @@ def draw_letter(letter, save=True):
 
 def count_black_pixels(img):
     pixels = list(img.getdata())
-    return len(list(filter(lambda rgb: sum(rgb) == 0, pixels)))
+    return len(list(filter(lambda rgb: sum(rgb) == 0, pixels))), hashlib.md5(json.dumps(pixels).encode()).hexdigest() != SQUARE_IMG_DATA_HASH
 
 
 process_data()
