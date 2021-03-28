@@ -70,7 +70,7 @@ def count_pixels_in_text(text):
     for char in text:
         if char == '\n':
             continue
-        if char == '\s':
+        if char == ' ':
             spaces += 1
             continue
         
